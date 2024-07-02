@@ -1,37 +1,38 @@
 {
-  "name": "@config-plugins/repo",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "postinstall": "expo-yarn-workspaces check-workspace-dependencies",
-    "gen": "ts-node ./scripts/generate-plugin.ts",
-    "update-issue-template": "ts-node ./scripts/gh-issues-config.ts",
-    "update-dependabot-config": "ts-node ./scripts/update-dependabot-config.ts",
-    "start": "lerna run build --parallel -- --watch",
-    "prepare": "lerna run prepare --parallel"
+  "name": "@reperiohealth/config-plugins-react-native-ble-plx",
+  "version": "7.0.0",
+  "description": "Config plugin to auto configure react-native-ble-plx on prebuild",
+  "main": "build/withBLE.js",
+  "types": "build/withBLE.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expo/config-plugins.git",
+    "directory": "packages/react-native-ble-plx"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
+  "files": [
+    "build",
+    "app.plugin.js"
   ],
-  "resolutions": {
-    "expo": "^49.0.3",
-    "fs-extra": "^9.1.0"
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module"
+  },
+  "keywords": [
+    "react-native",
+    "expo"
+  ],
+  "peerDependencies": {
+    "expo": "^49"
   },
   "devDependencies": {
-    "@expo/package-manager": "^0.0.43",
-    "@types/js-yaml": "^4.0.5",
-    "@types/prompts": "^2.0.13",
-    "eslint": "^8.10.0",
-    "expo-yarn-workspaces": "^2.0.2",
-    "js-yaml": "^4.1.0",
-    "lerna": "3.4.1",
-    "prettier": "^2.2.1",
-    "prompts": "^2.4.1",
-    "remark-cli": "^9.0.0",
-    "remark-validate-links": "^10.0.2",
-    "string.prototype.replaceall": "^1.0.5",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.2.4"
-  }
+    "expo-module-scripts": "^3.0.3"
+  },
+  "upstreamPackage": "react-native-ble-plx"
 }

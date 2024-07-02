@@ -1,66 +1,56 @@
-# Expo Config Plugins
+# config-plugins/react-native-ble-plx
 
-- A collection of [Expo config plugins](https://docs.expo.dev/guides/config-plugins/) for configuring the `npx expo prebuild` command.
-- This repo is to Expo config plugins as [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) is to TypeScript.
-- We prefer packages ship their own Expo config plugin (to ensure versioning is aligned), but if they haven't adopted the system yet, the community can add a package here.
-- All packages here are community maintained. Feel free to improve docs, packages, tests, etc.
-- We maintain a 1-1 mapping of **native packages** ⇔ `@config-plugins/*`. This means there should be no general utility packages here -- those are better suited for a different repo / NPM namespace.
+Config plugin to auto-configure `react-native-ble-plx` when the native code is generated (`npx expo prebuild`). [Upstream PR](https://github.com/Polidea/react-native-ble-plx/pull/842).
 
-## Awesome
+## Expo installation
 
-Here is a list of known packages that have a built-in Config Plugin.
+> Tested against Expo SDK 49
 
-> Not all packages need a config plugin, packages that don't appear here might still work with managed EAS.
+> This package cannot be used in the "Expo Go" app because [it requires custom native code](https://docs.expo.io/workflow/customizing/).
+> First install the package with yarn, npm, or [`npx expo install`](https://docs.expo.io/workflow/expo-cli/#expo-install).
 
-- [React Native Firebase](https://rnfirebase.io/) (`@react-native-firebase/perf`, `@react-native-firebase/app`)
-- [react-native-nfc-manager](https://github.com/revtel/react-native-nfc-manager)
-- [react-native-health](https://github.com/agencyenterprise/react-native-health)
-- [@react-native-mapbox-gl/maps](https://github.com/rnmapbox/maps)
-- [@logrocket/react-native](https://www.npmjs.com/package/@logrocket/react-native)
-- [sentry-expo](https://www.npmjs.com/package/sentry-expo)
-- [@leanplum/react-native-sdk](https://github.com/Leanplum/Leanplum-ReactNative-SDK#readme)
-- [react-native-fbsdk-next](https://www.npmjs.com/package/react-native-fbsdk-next)
-- [@stripe/stripe-react-native](https://www.npmjs.com/package/@stripe/stripe-react-native)
-- [@react-native-voice/voice](https://www.npmjs.com/package/@react-native-voice/voice)
-- [react-native-imglysdk](https://www.npmjs.com/package/react-native-imglysdk)
-- [@viro-community/react-viro](https://github.com/virocommunity/viro) -- [Guide](https://viro-community.readme.io/docs/integrating-with-expo)
-- [react-native-msal](https://www.npmjs.com/package/react-native-msal)
-- [react-native-spotlight-search](https://www.npmjs.com/package/react-native-spotlight-search)
-- [newrelic-react-native-agent](https://www.npmjs.com/package/newrelic-react-native-agent)
-- [react-native-videoeditorsdk](https://www.npmjs.com/package/react-native-videoeditorsdk)
-- [notifee](https://notifee.app/)
-- [App Clips](https://github.com/bndkt/react-native-app-clip/)
-- [iOS Safari Extensions](https://github.com/andrew-levy/react-native-safari-extension/)
+```sh
+npx expo install react-native-ble-plx @config-plugins/react-native-ble-plx
+```
 
-### Complementary
+After installing this npm package, add the [config plugin](https://docs.expo.io/guides/config-plugins/) to the [`plugins`](https://docs.expo.io/versions/latest/config/app/#plugins) array of your `app.json` or `app.config.js`:
 
-More out-of-tree plugins which can be used to configure more packages.
+```json
+{
+  "expo": {
+    "plugins": ["@config-plugins/react-native-ble-plx"]
+  }
+}
+```
 
-- [onesignal-expo-plugin](https://github.com/OneSignal/onesignal-expo-plugin) (for use with `react-native-onesignal`)
-  - Configures **iOS Notification Service Extensions** for rich push notification and custom notification actions.
-- [@lyrahealth-inc/react-native-orientation-plugin](@lyrahealth-inc/react-native-orientation-plugin) (for use with `react-native-orientation-plugin`)
-- [airship-expo-plugin](https://www.npmjs.com/package/airship-expo-plugin) (for use with `urbanairship-react-native`)
-- [config-plugin-react-native-intercom](https://www.npmjs.com/package/config-plugin-react-native-intercom) (for use with `intercom-react-native`)
-- [@allboatsrise/expo-marketingcloudsdk](https://www.npmjs.com/package/@allboatsrise/expo-marketingcloudsdk) (for use with `react-native-marketingcloudsdk`)
-- [@ouvio/react-native-background-location-plugin](https://www.npmjs.com/package/@ouvio/react-native-background-location-plugin) (for use with `react-native-background-location-plugin`)
-- [expo-community-flipper](https://www.npmjs.com/package/expo-community-flipper) (for use with Flipper)
-- [expo-appcenter](https://www.npmjs.com/package/expo-appcenter) (for use with `appcenter`)
-- [react-native-keyevent-expo-config-plugin](https://github.com/chronsyn/react-native-keyevent-expo-config-plugin) (for use with `react-native-keyevent`)
-- [watermelondb-expo-plugin](https://github.com/morrowdigital/watermelondb-expo-plugin) (for use with `@nozbe/watermelondb`)
+Next, rebuild your app as described in the ["Adding custom native code"](https://docs.expo.io/workflow/customizing/) guide.
 
-### No Plugin Required
+## API
 
-Just install and rebuild! If a package doesn't require any futher setup then it most likely doesn't need an Expo config plugin. Most packages work without a config plugin (including packages not listed below):
+The plugin provides props for extra customization. Every time you change the props or plugins, you'll need to rebuild (and `prebuild`) the native app. If no extra properties are added, defaults will be used.
 
-- [react-native-share](https://github.com/react-native-share/react-native-share)
-- [@react-native-menu/menu](https://github.com/react-native-menu/menu)
-- [react-native-blurhash](https://github.com/mrousavy/react-native-blurhash)
-- [react-native-app-shortcuts](https://github.com/lokyoung/react-native-app-shortcuts)
-- [react-native-multiple-image-picker](https://github.com/baronha/react-native-multiple-image-picker)
-- [`@shopify/flash-list`](https://github.com/Shopify/flash-list)
+- `isBackgroundEnabled` (_boolean_): Enable background BLE support on Android. Adds `<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>` to the `AndroidManifest.xml`. Default `false`.
+- `neverForLocation` (_boolean_): Set to true only if you can strongly assert that your app never derives physical location from Bluetooth scan results. The location permission will be still required on older Android devices. Note, that some BLE beacons are filtered from the scan results. Android SDK 31+. Default `false`. _WARNING: This parameter is experimental and BLE might not work. Make sure to test before releasing to production._
+- `modes` (_string[]_): Adds iOS `UIBackgroundModes` to the `Info.plist`. Options are: `peripheral`, and `central`. Defaults to undefined.
+- `bluetoothAlwaysPermission` (_string | false_): Sets the iOS `NSBluetoothAlwaysUsageDescription` permission message to the `Info.plist`. Setting `false` will skip adding the permission. Defaults to `Allow $(PRODUCT_NAME) to connect to bluetooth devices`.
 
-> Feel free to [open a PR](https://github.com/expo/config-plugins/edit/main/README.md) with missing packages.
+> Expo SDK 48 supports iOS 13+ which means `NSBluetoothPeripheralUsageDescription` is fully deprecated. It is no longer setup in `@config-plugins/react-native-ble-plx@5.0.0` and greater.
 
-## Contributing!
+#### Example
 
-See the [contributing guide](/CONTRIBUTING.md).
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "@config-plugins/react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": ["peripheral", "central"],
+          "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
+        }
+      ]
+    ]
+  }
+}
+```
