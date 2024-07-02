@@ -10,7 +10,7 @@ Config plugin to auto-configure `react-native-ble-plx` when the native code is g
 > First install the package with yarn, npm, or [`npx expo install`](https://docs.expo.io/workflow/expo-cli/#expo-install).
 
 ```sh
-npx expo install react-native-ble-plx @config-plugins/react-native-ble-plx
+npx expo install react-native-ble-plx @reperiohealth/config-plugins-react-native-ble-plx
 ```
 
 After installing this npm package, add the [config plugin](https://docs.expo.io/guides/config-plugins/) to the [`plugins`](https://docs.expo.io/versions/latest/config/app/#plugins) array of your `app.json` or `app.config.js`:
@@ -18,7 +18,7 @@ After installing this npm package, add the [config plugin](https://docs.expo.io/
 ```json
 {
   "expo": {
-    "plugins": ["@config-plugins/react-native-ble-plx"]
+    "plugins": ["@reperiohealth/config-plugins-react-native-ble-plx"]
   }
 }
 ```
@@ -43,7 +43,7 @@ The plugin provides props for extra customization. Every time you change the pro
   "expo": {
     "plugins": [
       [
-        "@config-plugins/react-native-ble-plx",
+        "@reperiohealth/config-plugins-react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
           "modes": ["peripheral", "central"],
