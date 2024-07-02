@@ -1,3 +1,9 @@
+### ⚠️ A note to current and future people wondering why this repo exists ⚠️
+
+In our expo migration there were issues with the latest version of `react-native-ble-plx@3.2.0` not working properly out of the box, so we kept using the working 2.x `react-native-ble-plx`, which required the use of `config-plugins/react-native-ble-plx`. Unfortunately that config plugin has an <= expo 49 peerDependency because the newer versions of `react-native-ble-plx` include the config plugin in the package. Once we are able to use the newer `react-native-ble-plx` versions with the included config plugin, we can delete this abomination.
+
+----
+
 # config-plugins/react-native-ble-plx
 
 Config plugin to auto-configure `react-native-ble-plx` when the native code is generated (`npx expo prebuild`). [Upstream PR](https://github.com/Polidea/react-native-ble-plx/pull/842).
